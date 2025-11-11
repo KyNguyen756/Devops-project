@@ -4,5 +4,5 @@ frontend/build/
 frontend/dist/
 
 # === BACKEND ===
-Backend/target/
+Backend/.mvn/
 *.jar
