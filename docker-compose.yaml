@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    image: 35.172.100.124:8082/devops/Backend:${BUILD_NUMBER:-latest}
+    image: 35.172.100.124:8082/devops/backend:${BUILD_NUMBER:-latest}
     ports:
       - "8080:8080"
     restart: unless-stopped
