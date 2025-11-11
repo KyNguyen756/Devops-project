@@ -1,10 +1,16 @@
-version: "3.8"
+version: '3.8'
+
 services:
   backend:
-    build: ./Backend
+    image: 35.172.100.124:8082/devops/Backend:${BUILD_NUMBER:-latest}
     ports:
       - "8080:8080"
+    restart: unless-stopped
+
   frontend:
-    build: ./frontend
+    image: 35.172.100.124:8082/devops/frontend:${BUILD_NUMBER:-latest}
     ports:
       - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
