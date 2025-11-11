@@ -2,12 +2,16 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
-# CHỈ COPY package.json → npm install tự tạo node_modules
+# Copy package files
 COPY package*.json ./
-RUN npm ci --only=production
+
+# CÀI TẤT CẢ (bao gồm devDependencies) → BẮT BUỘC CHO BUILD
+RUN npm ci
 
 # Copy source code
 COPY . .
+
+# Build React
 RUN npm run build
 
 # Run stage
