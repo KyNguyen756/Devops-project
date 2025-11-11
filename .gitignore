@@ -1,0 +1,8 @@
+# === FRONTEND ===
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+
+# === BACKEND ===
+Backend/target/
+*.jar
