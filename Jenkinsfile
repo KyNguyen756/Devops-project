@@ -1,43 +1,19 @@
 pipeline {
     agent any
-    options {
-        timeout(time: 30, unit: 'MINUTES')
-    }
-
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Build Backend') {
-            steps {
-                sh 'docker build -t backend-image ./Backend'
-            }
-        }
-
-        stage('Build Frontend') {
-            steps {
-                sh '''
-                cd frontend
-                docker build --memory=1g --memory-swap=1g -t frontend-image .
-                '''
-            }
-        }
-
-        stage('Deploy') {
+        stage('Checkout') { steps { checkout scm } }
+        stage('Build & Deploy') {
             steps {
                 sh '''
                 docker compose down || true
-                docker compose up -d
+                docker compose up -d --build
+                docker image prune -f
                 '''
             }
         }
     }
-
     post {
-        success { echo 'CI/CD THÀNH CÔNG!' }
-        failure { echo 'CI/CD THẤT BẠI!' }
+        success { echo 'Thành công! React: http://<IP>:3000 | API: http://<IP>:8080' }
+        failure { echo 'Thất bại!' }
     }
 }
