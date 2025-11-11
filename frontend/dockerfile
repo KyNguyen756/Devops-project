@@ -1,22 +1,13 @@
-# Build stage
-FROM node:20-alpine AS build
+# Step 1: Build stage
+FROM node:20 AS build
 WORKDIR /app
-
-# Copy package files
 COPY package*.json ./
-
-# CÀI TẤT CẢ (bao gồm devDependencies) → BẮT BUỘC CHO BUILD
-RUN npm ci
-
-# Copy source code
+RUN npm install
 COPY . .
-
-# Build React
 RUN npm run build
 
-# Run stage
+# Step 2: Run stage
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
