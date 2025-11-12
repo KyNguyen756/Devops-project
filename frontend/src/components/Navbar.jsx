@@ -12,7 +12,7 @@ export default function Navbar({ user, onLogout }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
       <div className="container">
-        <Link className="navbar-brand fw-bold" to="/tables">Quán Cà Phê</Link>
+        
         <div className="navbar-nav ms-auto d-flex align-items-center gap-3">
           <span className="navbar-text text-light">
             Xin chào, <strong>{user.username}</strong>
